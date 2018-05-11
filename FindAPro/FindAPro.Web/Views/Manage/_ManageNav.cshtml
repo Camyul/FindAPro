@@ -1,5 +1,7 @@
 ﻿@using FindAPro.Web.Views.Manage
-@inject SignInManager<ApplicationUser> SignInManager
+@using FindAPro.Data.Model
+
+@inject SignInManager<User> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

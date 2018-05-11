@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FindAPro.Data.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using FindAPro.Web.Models;
 
-namespace FindAPro.Web.Data
+namespace FindAPro.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class MsSqlDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public MsSqlDbContext(DbContextOptions<MsSqlDbContext> options)
             : base(options)
         {
         }

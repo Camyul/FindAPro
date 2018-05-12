@@ -1,5 +1,8 @@
 ﻿using FindAPro.Data;
+using FindAPro.Data.Contracts;
 using FindAPro.Data.Model;
+using FindAPro.Data.Repositories;
+using FindAPro.Data.SaveContext;
 using FindAPro.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +27,10 @@ namespace FindAPro.Web
         {
             services.AddDbContext<MsSqlDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //Add Repository to IoC Container
+            services.AddScoped(typeof(IEfRepository<>), typeof(EfRepository<>));
+            services.AddScoped(typeof(ISaveContext), typeof(SaveContext));
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<MsSqlDbContext>()

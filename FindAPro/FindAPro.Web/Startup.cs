@@ -41,6 +41,9 @@ namespace FindAPro.Web
                 .AddEntityFrameworkStores<MsSqlDbContext>()
                 .AddDefaultTokenProviders();
 
+            // Add Database Initializer
+            services.AddScoped<IDbInitializer, DbInitializer>();
+
             services.Configure<IdentityOptions>(options => 
             {
                 // Password settings
@@ -75,11 +78,22 @@ namespace FindAPro.Web
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            //Routes to Lower Case
+            services.AddRouting(options => options.LowercaseUrls = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //DataBase Auto migrate to latest migrations when project is builded
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<MsSqlDbContext>();
+
+                context.Database.Migrate();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

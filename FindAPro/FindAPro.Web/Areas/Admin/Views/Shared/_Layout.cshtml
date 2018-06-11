@@ -25,7 +25,7 @@
         <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
     </environment>
     <environment exclude="Development">
-
+        <link href="~/css/finalVendorsCss.min.css"  rel="stylesheet">
     </environment>
 
 </head>
@@ -1451,15 +1451,18 @@
         <script src="vendors/@@coreui/coreui/js/coreui.min.js"></script>
         <!-- Plugins and scripts required by this view-->
         <script src="vendors/chart.js/js/Chart.min.js"></script>
-    <script src="vendors/@@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips.min.js"></script>
-        @*<script src="js/concatedJs/concatVendorsJs.min.js"></script>*@
+        <script src="vendors/@@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips.min.js"></script>
 
         <script src="js/adminTheme/main.js"></script>
 
     </environment>
     <environment exclude="Development">
-        @*Add Bootstrap 4.1.1 and Jquery 3.3.1 from cdn*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
         <script src="js/concatedJs/concatVendorsJs.min.js"></script>
+
+        @*<script src="js/adminTheme/main.js"></script>*@
     </environment>
 
 </body>

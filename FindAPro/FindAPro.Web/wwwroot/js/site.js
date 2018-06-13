@@ -1,1 +1,6 @@
-﻿// Write your JavaScript code.
+
+console.log(print());
+
+function print() {
+    return "work"
+} 

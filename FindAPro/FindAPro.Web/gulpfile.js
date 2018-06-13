@@ -24,8 +24,40 @@ paths.vendorsTempMinCss = paths.webroot + 'css/**/*min.css';
 paths.adminCss = paths.webroot + 'css/adminTheme/**/*.css';
 paths.adminMinCssDest = paths.webroot + 'css/concatedCss/minAdminCss.min.css';
 
+paths.siteCss = paths.webroot + 'css/site.css';
+paths.siteMinCssDest = paths.webroot + 'css/site.min.css';
+
+paths.siteJs = paths.webroot + 'js/site.js';
+paths.siteMinJsDest = paths.webroot + 'js/site.min.js';
+
 paths.vendorsJs = paths.webroot + 'vendors/**/*.js';
 paths.vendorsconcatedJsDest = paths.webroot + 'js/concatedJs/concatVendorsJs.min.js';
+
+//Clean site.min.js
+gulp.task('cleanSiteJs:js', function (cb) {
+    rimraf(paths.siteMinJsDest, cb);
+});
+
+//Minify site.min.js
+gulp.task('minSite:js', function () {
+    return gulp.src(paths.siteJs, { base: "." })
+        .pipe(concat(paths.siteMinJsDest))
+        .pipe(uglify())
+        .pipe(gulp.dest("."));
+});
+
+//Clean site.min.css
+gulp.task('cleanSiteCss:css', function (cb) {
+    rimraf(paths.siteMinCssDest, cb);
+});
+
+//Minify site.css
+gulp.task('minSiteCss:css', function () {
+    return gulp.src([paths.siteCss])
+        .pipe(concat(paths.siteMinCssDest))
+        .pipe(cssmin())
+        .pipe(gulp.dest('.'));
+});
 
 //Clean vendors minified Css
 gulp.task('cleanVendorsCss:css', function (cb) {
@@ -69,10 +101,10 @@ gulp.task('concatVendors:js', function () {
 });
 
 //Run all clean tasks
-gulp.task('clean', ['cleanVendorsJs:js', 'cleanVendorsCss:css']);
+gulp.task('clean', ['cleanVendorsJs:js', 'cleanVendorsCss:css', 'cleanSiteCss:css', 'cleanSiteJs:js']);
 
 // gulp.task("clean", ["clean:js", "cleanTheme:js", "cleanTemp:js", "cleanAdminTheme:js",
 //                     "cleanWebTemp:css", "cleanAdminTemp:css", "cleanModalTemp:css", "cleanSiteCss:css", "cleanAdminSiteCss:css"]);
 
 
-gulp.task('default', ['concatVendors:js', 'concatVendorsMinCss:css']);
+gulp.task('default', ['concatVendors:js', 'concatVendorsMinCss:css', 'minSiteCss:css', 'minSite:js']);
